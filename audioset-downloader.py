@@ -5,14 +5,7 @@ import soundfile as sf
 dir = os.getcwd()
 os.chdir(dir)
 #os.chdir("D:\downloader\download_audioset")
-#make folders
-try:
-    data_dir = os.getcwd() + '/audioset/'
-    os.chdir(os.getcwd() + '/audioset')
-except:
-    data_dir = os.getcwd() + '/audioset/'
-    os.mkdir(os.getcwd() + '/audioset')
-    os.chdir(os.getcwd() + '/audioset')
+
 
 file = pd.read_excel('balanced_train_segments.xlsx')
 
@@ -21,11 +14,18 @@ audio_start = file.iloc[:,1].tolist()[2:]
 audio_end = file.iloc[:,2].tolist()[2:]
 audio_labels = file.iloc[:,3].tolist()[2:]
 
+
+
+
+try:
+    data_dir = os.getcwd() + '/audioset/'
+    os.chdir(os.getcwd() + '/audioset')
+except:
+    data_dir = os.getcwd() + '/audioset/'
+    os.mkdir(os.getcwd() + '/audioset')
+    os.chdir(os.getcwd() + '/audioset')
+    
 com_link='https://www.youtube.com/watch?v='
-
-
-
-
 for i in range(len(audio_id)):
     dl_link = com_link + audio_id[i]
     start = audio_start[i]
