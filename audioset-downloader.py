@@ -7,12 +7,12 @@ os.chdir(dir)
 #os.chdir("D:\downloader\download_audioset")
 #make folders
 try:
-    data_dir = os.getcwd()+'/audioset/'
-    os.chdir(os.getcwd()+'/audioset')
+    data_dir = os.getcwd() + '/audioset/'
+    os.chdir(os.getcwd() + '/audioset')
 except:
-    data_dir = os.getcwd()+'/audioset/'
-    os.mkdir(os.getcwd()+'/audioset')
-    os.chdir(os.getcwd()+'/audioset')
+    data_dir = os.getcwd() + '/audioset/'
+    os.mkdir(os.getcwd() + '/audioset')
+    os.chdir(os.getcwd() + '/audioset')
 
 file = pd.read_excel('balanced_train_segments.xlsx')
 
@@ -34,7 +34,7 @@ for i in range(len(audio_id)):
     try:
         video = pafy.new(dl_link)
         bestaudio = video.getbestaudio()
-        filename = bestaudio.download()
+        filename  = bestaudio.download()
         extension = bestaudio.extension
         
         os.rename(filename,'%s'%(str(audio_id[i])))
