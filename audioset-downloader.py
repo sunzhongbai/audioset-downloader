@@ -37,11 +37,11 @@ for i in range(len(audio_id)):
         filename  = bestaudio.download()
         extension = bestaudio.extension
         
-        os.rename(filename,'%s.%s'%(str(audio_id[i]),extension))
-        filename='%s.%s'%(str(audio_id[i]),extension)
+        os.rename(filename,'%s_start_%s_end_%s%s'%(str(i),start,end,extension))
+        filename='%s_start_%s_end_%s%s'%(str(i),start,end,extension)
 
 
-        if extension not in ['wav']:
+        if extension not in ['.wav']:
             xindex = filename.find(extension)
             filename = filename[0:xindex]
             ff = ffmpy.FFmpeg(
