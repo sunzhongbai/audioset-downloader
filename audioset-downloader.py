@@ -70,12 +70,13 @@ for i in range(len(audio_id)):
         #get file extension and convert to .wav for processing later 
         os.rename(filename,'%s_start_%s_end_%s%s'%(str(i),start,end,extension))
         filename='%s_start_%s_end_%s%s'%(str(i),start,end,extension)
-        if extension not in ['.wav']:
+
+        if extension not in ['wav']:
             xindex=filename.find(extension)
             filename=filename[0:xindex]
             ff=ffmpy.FFmpeg(
-                inputs={filename+extension:None},
-                outputs={filename+'.wav':None}
+                inputs = {filename + extension:None},
+                outputs = {filename + '.wav':None}
                 )
             ff.run()
             os.remove(filename+extension)
@@ -95,4 +96,5 @@ for i in range(len(audio_id)):
     except:
         print('no urls')
     
+time.sleep(5) 
     
