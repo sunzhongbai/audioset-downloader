@@ -35,15 +35,16 @@ for i in range(len(audio_id)):
         video = pafy.new(dl_link)
         bestaudio = video.getbestaudio()
         filename  = bestaudio.download()
-        extension = bestaudio.extension
+        extension = '.' + bestaudio.extension
         
-        os.rename(filename,'%s%s'%(str(audio_id[i]),extension))
-        filename='%s%s'%(str(audio_id[i]),extension)
+        os.rename(filename,'%s_start_%s_end_%s%s'%(audio_id[i],start,end,extension))
+        filename='%s_start_%s_end_%s%s'%(audio_id[i],start,end,extension)
 
 
-        if extension not in ['wav']:
+        if extension not in ['.wav']:
             xindex = filename.find(extension)
             filename = filename[0:xindex]
+            # filename = audio_id[i]
             ff = ffmpy.FFmpeg(
                 inputs = {filename + extension: None},
                 outputs = {filename + '.wav': None}
@@ -51,16 +52,16 @@ for i in range(len(audio_id)):
             ff.run()
             os.remove(filename + extension)
 
-        # file = filename + '.wav'
-        # data, samplerate = sf.read(file)
-        # totalframes = len(data)
-        # totalseconds = totalframes/samplerate
-        # startsec = start
-        # startframe = samplerat * startsec
-        # endsec = end
-        # endframe = samplerate * endsec
-        # sf.write(file, data[startframe:endframe], samplerate)
-        # os.remove(file)
+        file = filename + '.wav'
+        data, samplerate = sf.read(file)
+        totalframes = len(data)
+        totalseconds = totalframes/samplerate
+        startsec = start
+        startframe = samplerat * startsec
+        endsec = end
+        endframe = samplerate * endsec
+        sf.write(audio_id[i] + '.wav', data[startframe:endframe], samplerate)
+        os.remove(file)
 
     except:
         print('no urls')
