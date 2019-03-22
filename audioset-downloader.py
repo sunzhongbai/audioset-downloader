@@ -51,16 +51,16 @@ for i in range(len(audio_id)):
             ff.run()
             os.remove(filename + extension)
 
-        file = filename + '.wav'
-        data, samplerate = sf.read(file)
-        totalframes = len(data)
-        totalseconds = totalframes/samplerate
-        startsec = start
-        startframe = samplerat * startsec
-        endsec = end
-        endframe = samplerate * endsec
-        sf.write(file, data[startframe:endframe], samplerate)
-        os.remove(file)
+        # file = filename + '.wav'
+        # data, samplerate = sf.read(file)
+        # totalframes = len(data)
+        # totalseconds = totalframes/samplerate
+        # startsec = start
+        # startframe = samplerat * startsec
+        # endsec = end
+        # endframe = samplerate * endsec
+        # sf.write(file, data[startframe:endframe], samplerate)
+        # os.remove(file)
 
     except:
         print('no urls')
