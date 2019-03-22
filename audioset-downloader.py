@@ -25,6 +25,10 @@ for i in range(len(audio_id)):
         bestaudio = video.getbestaudio()
         filename = bestaudio.download()
         extension = bestaudio.extension
+        
+        os.rename(filename,'%s_start_%s_end_%s%s'%(str(audio_id[i]),start,end,extension))
+        filename='%s_start_%s_end_%s%s'%(str(audio_id[i]),start,end,extension)
+
 
         if extension not in ['.wav']:
             xindex = filename.find(extension)
