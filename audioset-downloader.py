@@ -88,8 +88,8 @@ for i in range(len(audio_id)):
         startframe=samplerate*startsec
         endsec=end
         endframe=samplerate*endsec
-        sf.write('snipped'+file, data[startframe:endframe], samplerate)
-        snippedfile='snipped'+file
+        sf.write(audio_id[i] + file, data[startframe:endframe], samplerate)
+        snippedfile = audio_id[i] + file
         os.remove(file)
 
     except:
