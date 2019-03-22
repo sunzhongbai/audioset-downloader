@@ -41,7 +41,7 @@ for i in range(len(audio_id)):
         filename='%s.%s'%(str(audio_id[i]),extension)
 
 
-        if extension not in ['.wav']:
+        if extension not in ['wav']:
             xindex = filename.find(extension)
             filename = filename[0:xindex]
             ff = ffmpy.FFmpeg(
