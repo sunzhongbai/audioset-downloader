@@ -25,7 +25,7 @@ except:
     os.mkdir(os.getcwd() + '/audioset')
     os.chdir(os.getcwd() + '/audioset')
     
-com_link='https://www.youtube.com/watch?v='
+com_link = 'https://www.youtube.com/watch?v='
 for i in range(len(audio_id)):
     dl_link = com_link + audio_id[i]
     start = audio_start[i]
@@ -37,8 +37,8 @@ for i in range(len(audio_id)):
         filename  = bestaudio.download()
         extension = bestaudio.extension
         
-        os.rename(filename,'%s'%(str(audio_id[i])))
-        filename='%s'%(str(audio_id[i]))
+        os.rename(filename,'%s.%s'%(str(audio_id[i]),extension))
+        filename='%s.%s'%(str(audio_id[i]),extension)
 
 
         if extension not in ['.wav']:
