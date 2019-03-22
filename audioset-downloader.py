@@ -9,13 +9,10 @@ os.chdir(dir)
 
 file = pd.read_excel('balanced_train_segments.xlsx')
 
-audio_id = file.iloc[:,0].tolist()[2:]
-audio_start = file.iloc[:,1].tolist()[2:]
-audio_end = file.iloc[:,2].tolist()[2:]
-audio_labels = file.iloc[:,3].tolist()[2:]
-
-
-
+audio_id     = file.iloc[:,0].tolist()[2:]
+audio_start  = file.iloc[:,1].tolist()[2:]
+audio_end    = file.iloc[:,2].tolist()[2:]
+#audio_labels = file.iloc[:,3].tolist()[2:]
 
 try:
     data_dir = os.getcwd() + '/audioset/'
@@ -26,70 +23,40 @@ except:
     os.chdir(os.getcwd() + '/audioset')
     
 com_link = 'https://www.youtube.com/watch?v='
+
 for i in range(len(audio_id)):
-    dl_link = com_link + audio_id[i]
-    start = audio_start[i]
-    end = audio_end[i]
+    dl_link    = com_link + audio_id[i]
+    start_time = audio_start[i]
+    end_time   = audio_end[i]
     
     try:
-        # video = pafy.new(dl_link)
-        # bestaudio = video.getbestaudio()
-        # filename  = bestaudio.download()
-        # extension = '.' + bestaudio.extension
-        
-        # os.rename(filename,'%s_start_%s_end_%s%s'%(audio_id[i],start,end,extension))
-        # filename='%s_start_%s_end_%s%s'%(audio_id[i],start,end,extension)
-
-
-        # if extension not in ['.wav']:
-        #     xindex = filename.find(extension)
-        #     filename = filename[0:xindex]
-        #     # filename = audio_id[i]
-        #     ff = ffmpy.FFmpeg(
-        #         inputs = {filename + extension: None},
-        #         outputs = {filename + '.wav': None}
-        #         )
-        #     ff.run()
-        #     os.remove(filename + extension)
-
-        # file = filename + '.wav'
-        # data, samplerate = sf.read(file)
-        # totalframes = len(data)
-        # totalseconds = totalframes/samplerate
-        # startsec = start
-        # startframe = samplerat * startsec
-        # endsec = end
-        # endframe = samplerate * endsec
-        # sf.write(audio_id[i] + '.wav', data[startframe:endframe], samplerate)
-        # os.remove(file)
-
-        video=pafy.new(dl_link)
-        bestaudio=video.getbestaudio()
-        filename=bestaudio.download()
-        extension=bestaudio.extension
+        video     = pafy.new(dl_link)
+        bestaudio = video.getbestaudio()
+        audioname = bestaudio.download()
+        extension = bestaudio.extension
         #get file extension and convert to .wav for processing later 
-        os.rename(filename,'%s_start_%s_end_%s%s'%(str(i),start,end,extension))
-        filename='%s_start_%s_end_%s%s'%(str(i),start,end,extension)
+        os.rename(audioname, '%s_start_%s_end_%s%s'%(str(i), start_time, end_time, extension))
+        audioname  = '%s_start_%s_end_%s%s'%(str(i), start_time, end_time, extension)
 
         if extension not in ['wav']:
-            xindex=filename.find(extension)
-            filename=filename[0:xindex]
-            ff=ffmpy.FFmpeg(
-                inputs = {filename + extension:None},
-                outputs = {filename + '.wav':None}
+            xindex    = audioname.find(extension)
+            audioname = audioname[0:xindex]
+            conv2wav  = ffmpy.FFmpeg(
+                inputs  = {audioname + extension:None},
+                outputs = {audioname + '.wav':None}
                 )
-            ff.run()
-            os.remove(filename+extension)
+            conv2wav.run()
+            os.remove(audioname + extension)
         
-        file=filename+'.wav'
-        data,samplerate=sf.read(file)
-        totalframes=len(data)
-        totalseconds=totalframes/samplerate
-        startsec=start
-        startframe=samplerate*startsec
-        endsec=end
-        endframe=samplerate*endsec
-        sf.write(audio_id[i] + '.wav', data[startframe:endframe], samplerate)
+        file = audioname + '.wav'
+        data, sample_rate = sf.read(file)
+
+        total_time  = len(data)/sample_rate
+        start_point = sample_rate * start_time
+        end_point   = sample_rate * end_time
+
+        sf.write(audio_id[i] + '.wav', data[start_point:end_point], sample_rate)
+        #sf.write(file, data[start_point:end_point], sample_rate)
         os.remove(file)
 
     except:
