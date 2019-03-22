@@ -2,7 +2,9 @@ import pafy, os, shutil, time, ffmpy
 import pandas as pd
 import soundfile as sf 
 
-os.chdir("D:\downloader\download_audioset")
+dir = os.getcwd()
+os.chdir(dir)
+#os.chdir("D:\downloader\download_audioset")
 
 file = pd.read_excel('balanced_train_segments.xlsx')
 
