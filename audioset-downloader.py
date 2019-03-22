@@ -37,8 +37,8 @@ for i in range(len(audio_id)):
         filename  = bestaudio.download()
         extension = bestaudio.extension
         
-        os.rename(filename,'%s_start_%s_end_%s%s'%(str(i),start,end,extension))
-        filename='%s_start_%s_end_%s%s'%(str(i),start,end,extension)
+        os.rename(filename,'%s_start_%s_end_%s%s'%(str(audio_id[i]),start,end,extension))
+        filename='%s_start_%s_end_%s%s'%(str(audio_id[i]),start,end,extension)
 
 
         if extension not in ['.wav']:
