@@ -1,10 +1,10 @@
-import pafy, time
+import pafy, time, ffmpy
 from pathlib import Path
 import pandas as pd
+import soundfile as sf 
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 
 #os.chdir("D:\downloader\download_audioset")
-
 
 file = pd.read_excel('balanced_train_segments.xlsx')
 
