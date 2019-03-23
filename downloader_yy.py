@@ -1,4 +1,4 @@
-import pafy, os, time
+import pafy, time
 from pathlib import Path
 import pandas as pd
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
@@ -28,6 +28,27 @@ def map_func(i, audio_id, audio_start, audio_end):
         print(f"start to download {dl_link}")
         audioname = bestaudio.download(filepath=str(file_path))
         print(f"end to download {dl_link}")
+
+        if extension not in ['wav']:
+            xindex    = audioname.find(extension)
+            audioname = audioname[0:xindex]
+            conv2wav  = ffmpy.FFmpeg(
+                inputs  = {audioname + extension:None},
+                outputs = {audioname + '.wav':None}
+                )
+            conv2wav.run()
+            Path.unlink(audioname + extension)
+        
+        file = audioname + '.wav'
+        data, sample_rate = sf.read(file)
+
+        total_time  = len(data)/sample_rate
+        start_point = sample_rate * start_time
+        end_point   = sample_rate * end_time
+
+        sf.write(audio_id[i] + '.wav', data[start_point:end_point], sample_rate)
+        #sf.write(file, data[start_point:end_point], sample_rate)
+        Path.unlink(file)
 
     except Exception as e:
         print(e)
