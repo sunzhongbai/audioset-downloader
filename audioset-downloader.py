@@ -41,17 +41,17 @@ def map_func(i, audio_id, audio_start, audio_end):
 			file_to_rem = Path(audioname + extension)
 			file_to_rem.unlink()
 		
-		file = audioname + '.wav'
-		#file = audioname		
+		file = audioname + '.wav'		
 		data, sample_rate = sf.read(file)
 
 		total_time  = len(data)/sample_rate
 		start_point = sample_rate * start_time
 		end_point   = sample_rate * end_time
 
-		sf.write(audio_id + '.wav', data[start_point:end_point], sample_rate)
-		sf.write(file, data[start_point:end_point], sample_rate)
-		#Path.unlink(file)
+		sf.write('./audioset/' + audio_id + '.wav', data[start_point:end_point], sample_rate)
+		#sf.write(file, data[start_point:end_point], sample_rate)
+		file_to_rem2 = Path(file)
+		file_to_rem2.unlink()
 
 	except Exception as e:
 		print(e)
