@@ -38,7 +38,8 @@ def map_func(i, audio_id, audio_start, audio_end):
 				outputs = {audioname + '.wav':None}
 			)
 			conv2wav.run()
-		#	Path.unlink(audioname + extension)
+			file_to_rem = Path(audioname + extension)
+			file_to_rem.unlink()
 		
 		file = audioname + '.wav'
 		#file = audioname		
